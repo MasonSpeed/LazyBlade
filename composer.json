@@ -1,0 +1,50 @@
+{
+    "name": "captenmasin/LazyBlade",
+    "description": "Easy blade partial lazyloading",
+    "keywords": [
+        "captenmasin",
+        "LazyBlade"
+    ],
+    "homepage": "https://github.com/captenmasin/LazyBlade",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "captenmasin",
+            "email": "mason@novogamer.com",
+            "homepage": "https://novogamer.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.3"
+    },
+    "require-dev": {
+        "larapack/dd": "^1.0",
+        "phpunit/phpunit": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "captenmasin\\LazyBlade\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "captenmasin\\LazyBlade\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "captenmasin\\LazyBlade\\LazyBladeServiceProvider"
+            ]
+        }
+    }
+}
