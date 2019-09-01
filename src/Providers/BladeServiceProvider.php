@@ -15,7 +15,7 @@ class BladeServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('lazyinclude', function ($expression) {
-            $args = explode(', ', $expression);
+            $args = explode(',', preg_replace("/[\(\)]/", '', $expression), 2);
             $partial = $args[0];
             $bladeArgs = $args[1];
             $lazyHtml = '';
