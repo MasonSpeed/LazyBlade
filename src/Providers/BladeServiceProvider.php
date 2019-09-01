@@ -15,15 +15,19 @@ class BladeServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('lazyinclude', function ($expression) {
-            $args = explode(',', preg_replace("/[\(\)]/", '', $expression), 2);
-            $partial = $args[0];
-            $bladeArgs = $args[1];
+            if (!strpos($expression, '[')) {
+                list($partial, $bladeArgs, $lazy) = array_pad(explode(',', $expression), 3, null);
+            } else {
+                $exploded = explode(',', $expression);
+                $partial = reset($exploded);
+                preg_match('/\[(.*?)]/', $expression, $pregArray);
+                $bladeArgs = $pregArray[0] . ']';
+                $lazy = trim(end($exploded));
+            }
+
             $lazyHtml = '';
-            if (isset($args[2])) {
-                $lazy = $args[2];
-                if ($lazy) {
-                    $lazyHtml = 'data-render-lazy=\'true\'';
-                }
+            if (!is_null($lazy) && strtolower($lazy == "true")) {
+                $lazyHtml = 'data-render-lazy=\'true\'';
             }
             return '
                 <div 
